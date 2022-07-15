@@ -66,19 +66,19 @@ const persistir = async (req, res) => {
 }
 
 const create = async (dados, res) => {
-  let { titulo, sinopse, emprestado, idAutor, idCategoria } = dados;
+  let {  titulo, sinopse, emprestado, idAutor, idCategoria } = dados;
 
-  let livroExistente = await Livro.findOne({
-    where: {
-      titulo
-    }
-  });
+  // let livroExistente = await Livro.findOne({
+  //   where: {
+      
+  //   }
+  // });
 
-  if (livroExistente) {
-    return res.status(400).send({
-      message: 'Já existe um livro cadastrado com esse titulo'
-    })
-  }
+  // if (livroExistente) {
+  //   return res.status(400).send({
+  //     message: 'Já existe um livro cadastrado com esse id'
+  //   })
+  // }
 
   let livro = await Livro.create({
     titulo, sinopse, emprestado, idAutor, idCategoria
@@ -145,6 +145,7 @@ const deletar = async (req, res) => {
     })
   }
 }
+
 
 export default {
   getAll,

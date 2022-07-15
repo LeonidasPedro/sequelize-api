@@ -39,22 +39,22 @@ const EmprestimoLivro = sequelize.define(
 );
 
 Emprestimo.belongsToMany(Livro, { 
-  through: EmprestimoLivro,
-  as: 'emprestimo',
+  through: EmprestimoLivro, 
+  as: 'livros', 
   foreignKey: {
-    name: 'idLivro',
-    allowNull: false,
-    field: 'id_livro'
+    name: 'idEmprestimo',
+    field: 'id_emprestimo',
+    allowNull: false
   } 
 });
 
-Livro.belongsToMany(Emprestimo, { 
+Livro.belongsToMany(Emprestimo, {
   through: EmprestimoLivro,
-  as: 'livro',
+  as: 'emprestimos',
   foreignKey: {
-    name: 'idEmprestimo',
-    allowNull: false,
-    field: 'id_emprestimo'
+    name: 'idLivro',
+    field: 'id_livro',
+    allowNull: false
   }
 });
 

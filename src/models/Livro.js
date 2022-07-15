@@ -13,7 +13,7 @@ const Livro = sequelize.define(
         },
         titulo:{
             type:DataTypes.STRING,
-			allowNull: false
+			      allowNull: false
         },
         sinopse:{
             type:DataTypes.STRING(500),
