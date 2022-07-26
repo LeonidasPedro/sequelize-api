@@ -1,9 +1,10 @@
 //responsavel por executar o que tiver que ser executado
-//as funcoes de lidar com o banco de dados
+//as funcoes de lidar com o banco de dados.
 //os cruds - GetAll, GetById, Persistir, Delete
 import Emprestimo from "../models/Emprestimo";
 import Livro from "../models/Livro";
 import { Op } from "sequelize";
+import { sequelize } from "../config/config";
 import EmprestimoLivro from "../models/EmprestimoLivro";
 
 const getAll = async (req, res) => {
@@ -96,7 +97,6 @@ const create = async (dados, res) => {
           message: `O livro id ${livros[index]} não existe. O empréstimo não foi salvo!!`
         })
       }
-  
       let livroEmprestado = await sequelize.query(`
         select
           id_emprestimo as id
@@ -203,10 +203,21 @@ const status = async (req, res) =>{
             }
         }
       );
+
       if(!emprestimo.length){
-        return res.status(200).send({message:"O livro está disponivel para emprestimo"})
+        return res.status(200).send({
+          message:"O livro está disponivel para emprestimo",
+          disponivel:true,
+          })
       }
-      return res.status(200).send(emprestimo)
+      return res.status(200).send({
+        emprestimo,
+        disponivel:false,
+        autor: livro.autor,
+        titulo: livro.titulo,
+        id: livro.id,
+        sinopse: livro.sinopse,
+      })
     } catch (error) {
       
     }

@@ -48,7 +48,7 @@ const getById = async (req, res) => {
 
 const persistir = async (req, res) => {
   try {
-    let { id } = req.params;
+    let { id, email } = req.params;
     //caso nao tenha id, cria um novo registro
     if (!id) {
       return await create(req.body, res)
@@ -63,7 +63,7 @@ const persistir = async (req, res) => {
 }
 
 const create = async (dados, res) => {
-  let { nome } = dados;
+  let { nome, email } = dados;
 
   let autorExistente = await Autor.findOne({
     where: {
@@ -78,7 +78,8 @@ const create = async (dados, res) => {
   }
 
   let autor = await Autor.create({
-    nome
+    nome,
+    email
   });
   return res.status(201).send(autor)
 }
